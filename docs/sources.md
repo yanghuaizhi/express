@@ -29,5 +29,6 @@ ASD-STE100 有独立的版权和使用条件。开源项目的 MIT 许可证不�
 - [官方插件打包说明](https://developers.openai.com/plugins/build/plugins)：清单、市场目录与插件内 hook。
 - [官方 hook 说明](https://learn.chatgpt.com/docs/hooks)：生命周期、上下文输出与原生信任机制。
 - [Codex 0.159.2 的 SessionStart 输入定义](https://github.com/openai/codex/blob/ff6aec96948b70d94983af2641a6b67c94faeff5/codex-rs/hooks/schema/generated/session-start.command.input.schema.json)：包含 startup、resume、clear、compact、fork。
+- [该版本的清单优先级](https://github.com/openai/codex/blob/ff6aec96948b70d94983af2641a6b67c94faeff5/codex-rs/utils/plugins/src/plugin_namespace.rs#L43-L63)与 [hook 加载分支](https://github.com/openai/codex/blob/ff6aec96948b70d94983af2641a6b67c94faeff5/codex-rs/core-plugins/src/loader.rs#L950-L962)：根目录通用清单优先，但该格式在此版本会跳过 hook，因此本项目使用 `.codex-plugin/plugin.json`。原生目录检查确认此入口可同时发现 Skill 与 SessionStart hook。
 
 这些来源说明宿主能力，不证明本项目在所有客户端、模型和会话中都已有效。实际验证范围见[评估说明](../evals/README.md)。
