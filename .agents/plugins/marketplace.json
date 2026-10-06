@@ -1,0 +1,12 @@
+{
+  "name": "express-marketplace",
+  "interface": { "displayName": "Express" },
+  "plugins": [
+    {
+      "name": "express",
+      "source": { "source": "local", "path": "./" },
+      "policy": { "installation": "AVAILABLE", "authentication": "ON_INSTALL" },
+      "category": "Productivity"
+    }
+  ]
+}
