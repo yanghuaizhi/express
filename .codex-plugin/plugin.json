@@ -1,16 +1,22 @@
 {
   "name": "express",
-  "version": "0.1.0",
-  "description": "让日常会话、复杂解释与工作文档更清楚。Clear communication for Codex, designed for Chinese.",
+  "version": "0.1.1",
+  "description": "让 Codex 的对话和文档更清楚。中文友好，讲清重点、关系与条件，保留必要依据和原意。",
   "author": { "name": "Express contributors" },
   "license": "MIT",
   "skills": "./skills/",
   "hooks": "./hooks/hooks.json",
   "interface": {
-    "displayName": "Express · 清楚表达",
-    "shortDescription": "直接回答，讲清关系，保留必要信息与原意。",
-    "developerName": "Express contributors",
+    "displayName": "Express",
+    "shortDescription": "让对话和文档更清楚",
+    "longDescription": "让 Codex 的回答更容易理解：先给结论，讲清关系与条件，保留必要依据。适用于日常问答、复杂任务和工作文档；需要重新解释时，主动换一种讲清楚的方式。",
+    "developerName": "Express",
     "category": "Productivity",
-    "defaultPrompt": ["请用 Express 帮我讲清这个问题。"]
+    "websiteURL": "https://github.com/yanghuaizhi/express",
+    "brandColor": "#2D3832",
+    "composerIcon": "./skills/express/assets/icon.svg",
+    "logo": "./skills/express/assets/icon.svg",
+    "logoDark": "./skills/express/assets/icon-dark.svg",
+    "defaultPrompt": ["把这个问题讲清楚，保留必要的依据和条件。"]
   }
 }

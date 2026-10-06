@@ -23,7 +23,8 @@ def validate() -> list[str]:
     manifest = json.loads((ROOT / ".codex-plugin/plugin.json").read_text(encoding="utf-8"))
     require(manifest.get("name") == "express", "Unexpected plugin identity")
     require(not (ROOT / "plugin.json").exists(), "Root plugin.json shadows Codex hook loading in the verified host version")
-    for path in (manifest["skills"], manifest["hooks"]):
+    plugin_interface = manifest["interface"]
+    for path in (manifest["skills"], manifest["hooks"], *(plugin_interface[key] for key in ("composerIcon", "logo", "logoDark"))):
         require(path.startswith("./") and ".." not in Path(path).parts, "Plugin path must be package-relative")
         require((ROOT / path).exists(), f"Missing plugin component: {path}")
 
@@ -39,6 +40,10 @@ def validate() -> list[str]:
     interface = yaml.safe_load((skill.parent / "agents/openai.yaml").read_text(encoding="utf-8"))
     require("$express" in interface["interface"]["default_prompt"], "Default prompt must invoke $express")
     require(interface["policy"]["allow_implicit_invocation"] is True, "Expected normal skill discovery")
+    for key in ("icon_small", "icon_large"):
+        asset = interface["interface"][key]
+        require(asset.startswith("./assets/") and ".." not in Path(asset).parts, "Skill icons must remain inside the standalone skill")
+        require((skill.parent / asset).is_file(), f"Missing skill icon: {asset}")
 
     hooks = json.loads((ROOT / manifest["hooks"]).read_text(encoding="utf-8"))["hooks"]
     require(set(hooks) == {"SessionStart"}, "Only SessionStart is part of this package")

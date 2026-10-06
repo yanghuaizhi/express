@@ -3,7 +3,7 @@ name: express
 description: "在 Codex 的复杂任务回复、解释、方案讨论、澄清、进度、总结及文档中应用 ASD-STE100 启发的清晰表达。用户说没看懂、重点不清、太绕、信息不全或要求重新解释时自动使用。中文友好，保留依据与原意。Use for clear communication and automatic repair of unclear answers. 不替代研究、编码或专项稿件编辑流程。"
 ---
 
-# Express · 清楚表达
+# Express
 
 让读者容易理解、判断和行动，同时保留事实、原意与必要信息。把 ASD-STE100 的明确对象、稳定术语、具体动作和清楚条件用于日常沟通，按中文习惯表达。不是只在写文档或用户投诉后才应用。
 

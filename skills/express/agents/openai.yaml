@@ -1,6 +1,9 @@
 interface:
-  display_name: "Express · 清楚表达"
-  short_description: "默认改善复杂会话与文档表达，采用适合中文的 STE 原则并主动修正歧义"
-  default_prompt: "请用 $express 改善本次会话与文档表达：直接回答问题，讲清对象、依据、条件与动作，保留原意。"
+  display_name: "Express"
+  short_description: "讲清日常问题、复杂关系与方案取舍，保留必要事实、条件和原意"
+  icon_small: "./assets/icon.svg"
+  icon_large: "./assets/icon.svg"
+  brand_color: "#2D3832"
+  default_prompt: "用 $express 讲清这个问题，保留必要的依据和条件。"
 policy:
   allow_implicit_invocation: true
