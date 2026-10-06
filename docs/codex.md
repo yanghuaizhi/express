@@ -19,14 +19,16 @@ Express 提供标准 Skill 和可选的会话启动插件。安装、规则加�
 
 ## 插件方式
 
-在本仓库根目录执行：
+从公开仓库安装：
 
 ```bash
-codex plugin marketplace add .
+codex plugin marketplace add yanghuaizhi/express
 codex plugin add express@express-marketplace
 ```
 
-以上命令会登记市场来源并安装插件。安装前可先查看 `.codex-plugin/plugin.json`、`hooks/hooks.json`、`hooks/session_start.py` 和 `skills/express/references/core.md`。市场入口在 `.agents/plugins/marketplace.json`，插件使用 Codex 的 `.codex-plugin/plugin.json` 清单。
+以上命令会登记市场来源并安装插件。若已下载或克隆仓库，可在本仓库根目录用 `codex plugin marketplace add .` 登记本地来源。
+
+安装前可先查看 `.codex-plugin/plugin.json`、`hooks/hooks.json`、`hooks/session_start.py` 和 `skills/express/references/core.md`。市场入口在 `.agents/plugins/marketplace.json`，插件使用 Codex 的 `.codex-plugin/plugin.json` 清单。
 
 安装插件后，在 Codex 原生界面审阅并信任 hook。CLI 可用 `/hooks`；启动提示也提供审阅入口。未信任时会跳过，不应把“已安装”说成“已生效”。不要通过手写信任哈希或跳过信任参数代替审阅。[官方 hook 机制](https://learn.chatgpt.com/docs/hooks)
 
@@ -57,10 +59,11 @@ hook 不读取 stdin，不打开 `transcript_path`，不访问网络、不写文
 
 维护打包时保留 Codex 清单入口。在已核验的 Codex 0.159.2 中，根目录的通用 `plugin.json` 会优先于 `.codex-plugin/plugin.json`，而该通用格式的加载分支会跳过插件 hook。这会造成 Skill 已发现、启动规则却缺失。未来若改格式，需要同时验证原生 Skill 目录与 hook 目录，不能只做 JSON 格式检查。
 
-更新前保留自己的修改，比较共同原则、Skill 和 hook 的变更。使用登记的市场来源时，可刷新市场并按客户端提示更新插件：
+更新前保留自己的修改，比较共同原则、Skill 和 hook 的变更。登记的是本地目录时，先更新该目录的内容。刷新已登记的市场来源，再安装当前版本：
 
 ```bash
 codex plugin marketplace upgrade express-marketplace
+codex plugin add express@express-marketplace
 ```
 
 核对本次实际安装的版本，再用一个代表性任务检查输出。Codex 的信任哈希对应 hook 定义；包内规则或脚本内容更新不一定触发再次确认，因此不能用“没有提示”代表“内容没变”。

@@ -20,14 +20,16 @@
 
 希望日常沟通也采用这些原则，推荐安装插件。它在受支持的会话启动事件中加载共同原则，复杂解释和表达纠正再按需使用详细 Skill。已经加载的原则直接应用，不在每次回复前重新读取或宣布启用。
 
-在下载或克隆后的项目根目录执行：
+在 Codex CLI 中从 GitHub 安装：
 
 ```bash
-codex plugin marketplace add .
+codex plugin marketplace add yanghuaizhi/express
 codex plugin add express@express-marketplace
 ```
 
 随后通过 Codex 原生界面审阅并信任启动 hook（会话开始时执行的脚本）；CLI 可用 `/hooks`。插件安装成功不代表 hook 已获信任。需要 `python3`；详见[安装与生效](docs/codex.md)。
+
+已经下载或克隆项目时，也可以在项目根目录把第一条命令改为 `codex plugin marketplace add .`，使用本地来源。
 
 两种入口选一种即可：
 

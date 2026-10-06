@@ -8,16 +8,18 @@ Answer the reader's question first. Explain the necessary evidence, conditions, 
 
 ## Make it a session default
 
-For everyday communication, install the plugin from a downloaded or cloned checkout:
+For everyday communication, install the plugin from GitHub with the Codex CLI:
 
 ```bash
-codex plugin marketplace add .
+codex plugin marketplace add yanghuaizhi/express
 codex plugin add express@express-marketplace
 ```
 
 Then review and trust its session-start hook through Codex's native flow, such as `/hooks` in the CLI. Installation does not automatically trust it. The hook requires `python3` on PATH and loads shared communication principles on supported session-start events. Complex explanations and feedback such as “I don't understand” or “the main point is missing” call for the relevant skill guidance without a separate enablement request. Guidance already in context is reused.
 
 You can ask questions and request clearer explanations normally; `$express` is not required for every message. Whether instructions were loaded and whether an answer is useful are separate checks. See the [setup guide](docs/codex.md) for verification, updates, and removal.
+
+For a local checkout, run `codex plugin marketplace add .` from the repository root instead of the first command above.
 
 ## Try the standalone skill
 
