@@ -20,14 +20,10 @@ def validate() -> list[str]:
         if not condition:
             errors.append(message)
 
-    portable = json.loads((ROOT / "plugin.json").read_text(encoding="utf-8"))
-    legacy = json.loads((ROOT / ".codex-plugin/plugin.json").read_text(encoding="utf-8"))
-    for key in ("name", "version", "description", "author", "license"):
-        require(portable.get(key) == legacy.get(key), f"Manifest mismatch: {key}")
-    extension = portable["extensions"]["com.openai"]
-    for key in ("hooks", "interface"):
-        require(extension.get(key) == legacy.get(key), f"Codex overlay mismatch: {key}")
-    for path in (legacy["skills"], extension["hooks"]):
+    manifest = json.loads((ROOT / ".codex-plugin/plugin.json").read_text(encoding="utf-8"))
+    require(manifest.get("name") == "express", "Unexpected plugin identity")
+    require(not (ROOT / "plugin.json").exists(), "Root plugin.json shadows Codex hook loading in the verified host version")
+    for path in (manifest["skills"], manifest["hooks"]):
         require(path.startswith("./") and ".." not in Path(path).parts, "Plugin path must be package-relative")
         require((ROOT / path).exists(), f"Missing plugin component: {path}")
 
@@ -44,7 +40,7 @@ def validate() -> list[str]:
     require("$express" in interface["interface"]["default_prompt"], "Default prompt must invoke $express")
     require(interface["policy"]["allow_implicit_invocation"] is True, "Expected normal skill discovery")
 
-    hooks = json.loads((ROOT / extension["hooks"]).read_text(encoding="utf-8"))["hooks"]
+    hooks = json.loads((ROOT / manifest["hooks"]).read_text(encoding="utf-8"))["hooks"]
     require(set(hooks) == {"SessionStart"}, "Only SessionStart is part of this package")
     group = hooks["SessionStart"][0]
     require("matcher" not in group, "SessionStart must cover all sources")
@@ -52,7 +48,7 @@ def validate() -> list[str]:
     require((ROOT / "hooks/session_start.py").is_file(), "SessionStart script missing")
 
     market = json.loads((ROOT / ".agents/plugins/marketplace.json").read_text(encoding="utf-8"))
-    require(market["plugins"][0]["name"] == portable["name"], "Marketplace plugin identity mismatch")
+    require(market["plugins"][0]["name"] == manifest["name"], "Marketplace plugin identity mismatch")
     require(market["plugins"][0]["source"]["path"] == "./", "Marketplace must resolve the package root")
 
     ignored = {".git", ".venv", ".work", "artifacts", "__pycache__"}
